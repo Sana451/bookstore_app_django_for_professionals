@@ -1,4 +1,6 @@
 {% extends "_base.html" %}
+{% load static %}
+{% load socialaccount %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -12,4 +14,10 @@
         {{ form|crispy }}
         <button class="btn btn-success" type="submit">Log In</button>
     </form>
+
+    <br>
+    <h2>Log In with SocialMedia</h2>
+    <a href="{% provider_login_url 'github' %}">
+        <img src="{% static 'images/login_with_github.png' %}" alt="Log In with GitHub" style="width:300px;height:80px;">
+    </a>
 {% endblock content%}
