@@ -3,7 +3,7 @@ from django.test import Client
 import pytest
 from pytest_django.asserts import assertTemplateUsed
 
-from pages.views import HomePageView, AboutPageView
+from pages.views import HomePageView
 
 
 @pytest.fixture(scope="function")

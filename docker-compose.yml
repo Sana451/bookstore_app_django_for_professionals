@@ -9,6 +9,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - "DJANGO_SECRET_KEY=django-insecure-g_3rbgqzd4=0d+xfuqppv91^1i994bepsz3gx(e(e=e*xkx4ry"
+      - "DJANGO_DEBUG=True"
+      - "DJANGO_GITHUB_CLIENT_ID=Ov23litzgiESXaGLWyEj"
+      - "DJANGO_GITHUB_SECRET=94ee1be1494f48b2414c0b4a9c68adb78cd4bb9f"
+      - "MAIL_RU_APP_PASSWORD=CyFLanbRKbnDWm7vTDMH"
   db:
     image: postgres:13
     volumes:
