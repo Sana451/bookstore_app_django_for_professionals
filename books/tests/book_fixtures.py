@@ -16,9 +16,10 @@ def new_book():
 
 
 @pytest.fixture(scope="function")
-def new_review_user():
-    return User.objects.create(
-        username="reviewuser",
-        email="reviewuser@email.com",
-        password="testpass123",
+def new_user():
+    return User.objects.create_user(
+        username="user1",
+        email="user1@email.com",
+        password="user1password",
     )
+
