@@ -1,3 +1,4 @@
+import socket
 from pathlib import Path
 from environs import Env
 
@@ -11,7 +12,6 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env.bool("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '".herokuapp.com', 'localhost']
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    "debug_toolbar",
+    'django_extensions',
 
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
@@ -38,6 +40,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,7 +52,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     "allauth.account.middleware.AccountMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
 
 ROOT_URLCONF = 'django_project.urls'
 
@@ -86,7 +96,6 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'sana451@mail.ru'
 EMAIL_HOST_PASSWORD = env("MAIL_RU_APP_PASSWORD")
-
 
 # DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -154,3 +163,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
