@@ -185,3 +185,4 @@ fabric.properties
 
 fabfile.py
 docker-compose-prod.yml
+staticfiles
