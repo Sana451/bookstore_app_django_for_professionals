@@ -4,6 +4,7 @@ import pytest
 from pytest_django.asserts import assertTemplateUsed
 
 from pages.views import AboutPageView
+from book_fixtures import new_user
 
 
 @pytest.fixture(scope="function")
@@ -17,7 +18,7 @@ def test_about_page_status_code(response):
     assert response.status_code == 200
 
 
-def test_about_page_template(response):
+def test_about_page_template(response, new_user):
     assertTemplateUsed(response, "about.html")
 
 

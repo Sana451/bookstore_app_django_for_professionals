@@ -11,18 +11,28 @@
         <p>Author: {{ book.author }}</p>
         <p>Price: {{ book.price }}</p>
 
+
         {% if book.reviews.all %}
-        <div>
-            <h3>Reviews</h3>
 
-            <ul>
-                {% for review in book.reviews.all %}
-                    <li>{{ review.review }} ({{ review.author }})</li>
-                {% endfor %}
-             </ul>
+            <div>
+                <h3>Reviews
+                    <a href="{% url 'book-review-add' book.id %}">+</a>
+                </h3>
 
-        </div>
+                <ul>
+                    {% for review in book.reviews.all %}
+                        <li>{{ review.review }} ({{ review.author }})</li>
+                    {% endfor %}
+                 </ul>
+
+            </div>
+            {% else %}
+                <h3>There is no reviews yet
+                    <a href="{% url 'book-review-add' book.id %}">Add first review</a>
+                </h3>
+
         {% endif %}
+
 
     </div>
 {% endblock content %}
